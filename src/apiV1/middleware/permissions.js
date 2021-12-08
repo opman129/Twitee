@@ -10,10 +10,7 @@ exports.checkIfUserIsPostCreator = catchAsync( async (req, res, next) => {
     if (!post) return next(new AppError("Post with the given Id does not exist", 404));
     const creator = post.user.toString();
 
-    if (req.user.id === creator) {
-        return next();
-    }; 
-
+    if (req.user.id === creator) return next(); 
     return next(new AppError("You do not have the correct permissions to carry out this action", 403));
 });
 
