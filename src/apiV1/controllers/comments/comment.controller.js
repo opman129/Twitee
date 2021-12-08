@@ -20,9 +20,12 @@ module.exports.createComment = catchAsync (async (req, res, next) => {
 
 /** Fetch All Comments */
 module.exports.fetchComments = catchAsync( async (req, res, next) => {
-    const comments = await Comment.find().sort('-createdAt');
+    const { post_id } = req.params;
+    const post = await Post.findById(post_id).lean();
+    if (!post) return next(new AppError("Post with the given Id not found"));
+    const comments = await Comment.find({ post }).sort('-createdAt');
 
-    const message = 'All comments retrieved successfully';
+    const message = 'All comments for this Twit retrieved successfully';
     const record = comments.length;
     return responseHandler(res, comments, next, 200, message, record);
 });
