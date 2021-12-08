@@ -1,0 +1,12 @@
+node_modules/
+package-lock.json
+yarn.lock
+dist
+npm-debug.log
+.env
+logs
+*.tfvars
+deployment/
+merge.sh
+data/
+yarn-error.log
